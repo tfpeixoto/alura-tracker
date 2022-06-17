@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box formulario">
     <div class="columns">
       <div
         class="column is-8"
@@ -27,9 +27,10 @@ import Temporizador from "./Temporizador.vue";
 
 export default defineComponent({
   name: "Formulario",
+  emits: ['aoSalvarTarefa'],
   data() {
     return {
-      descricao: "",
+      descricao: '',
     };
   },
   components: {
@@ -37,11 +38,18 @@ export default defineComponent({
   },
   methods: {
     finalizarTarefa(tempoDecorrido: number): void {
-      this.descricao = "";
-
-      console.log(tempoDecorrido);
-      console.log(this.descricao);
+      this.$emit('aoSalvarTarefa', {
+        duracaoEmSegundos: tempoDecorrido,
+        descricao: this.descricao
+      })
     },
   },
 });
 </script>
+
+<style>
+.formulario{
+  background: var(--bg-primario);
+  color: var(--texto-primario);
+}
+</style>
